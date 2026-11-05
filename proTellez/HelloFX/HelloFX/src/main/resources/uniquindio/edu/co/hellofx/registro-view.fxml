@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="uniquindio.edu.co.hellofx.controller.RegistroController"
+      alignment="CENTER" spacing="12" prefWidth="360" prefHeight="280">
+    <padding><Insets topRightBottomLeft="20"/></padding>
+    <Button text="Ver lista de usuarios" onAction="#onVerLista"/>
+
+    <Label text="Registro de Persona" style="-fx-font-size:18; -fx-font-weight:bold;"/>
+
+    <TextField fx:id="txtNombre" promptText="Nombre"/>
+    <Button fx:id="btnSeleccionar" text="Seleccionar Imagen" onAction="#onSeleccionarImagen"/>
+    <Button fx:id="btnGuardar" text="Guardar Persona" onAction="#onGuardarPersona"/>
+    <Label fx:id="lblEstado" wrapText="true"/>
+</VBox>
