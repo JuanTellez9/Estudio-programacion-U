@@ -43,6 +43,8 @@ defmodule Isla do
 
         escribir(@resumen, "La isla es inválida; no se buscaron rutas.")
       else
+        escribir(@validacion, "La isla es válida")
+        IO.puts("La isla es válida")
         [origen] = personas
         [destino] = botes
         casillas = construir_casillas(filas)
@@ -90,17 +92,28 @@ defmodule Isla do
         nombre = String.trim(nombre)
         transitable = String.trim(transitable)
 
-        case Integer.parse(String.trim(costo_texto)) do
-          {costo, ""} when costo >= 0 and simbolo != "" and nombre != "" ->
-            if transitable == "si" or transitable == "no" do
-              {:ok, %Terreno{simbolo: simbolo, nombre: nombre,
-                transitable: transitable == "si", costo: costo}}
-            else
-              {:error, "transitable debe ser si o no"}
-            end
+        cond do
+          simbolo == "" ->
+            {:error, "símbolo vacío"}
 
-          _ ->
-            {:error, "símbolo, nombre o costo inválido"}
+          nombre == "" ->
+            {:error, "nombre vacío"}
+
+          transitable != "si" and transitable != "no" ->
+            {:error, "transitable debe ser si o no"}
+
+          true ->
+            case Integer.parse(String.trim(costo_texto)) do
+              {costo, ""} when costo >= 0 ->
+                {:ok, %Terreno{simbolo: simbolo, nombre: nombre,
+                  transitable: transitable == "si", costo: costo}}
+
+              {_costo, ""} ->
+                {:error, "costo negativo"}
+
+              _ ->
+                {:error, "costo no numérico"}
+            end
         end
 
       _ ->
